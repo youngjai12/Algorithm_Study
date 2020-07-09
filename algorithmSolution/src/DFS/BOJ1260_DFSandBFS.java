@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class BOJ1260_DFSandBFS {
 	public static int edgeNum, nodeNum;
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		nodeNum = sc.nextInt();
@@ -28,39 +29,46 @@ public class BOJ1260_DFSandBFS {
 		
 		boolean[] visit = new boolean[nodeNum+1];
 		visit[startNode]=true;
-		dfsRecursive(graph, startNode, 1, visit, ""+startNode);
+		System.out.println(dfsRecursive(graph, startNode, 1, visit, ""+startNode));
+		visit = new boolean[nodeNum+1];
+		visit[startNode]=true;
+		bfs(graph, startNode, visit);
 	}
-	public static void dfsRecursive(ArrayList<Integer>[] graph, int start, int count, boolean[] visited, String path) {
-		if(count == nodeNum) {
-			System.out.println(path);
-		}else {
+	
+	public static String dfsRecursive(ArrayList<Integer>[] graph, int start, int count, boolean[] visited, String path) {
+		String answer = path;	
+		Collections.sort(graph[start]);
 			for(int i=0;i<graph[start].size();i++) {
-				Collections.sort(graph[start]);
 				int dest = graph[start].get(i);
 				if(!visited[dest]) {
 					visited[dest]=true;
 					path = path+" "+dest;
-					dfsRecursive(graph, dest, count+1, visited, path);
+					answer = dfsRecursive(graph, dest, count+1, visited, path);
 				}
 			}
-		}
+		return answer;
+			
 	}
 	
-	public static void bfs(ArrayList<Integer>[] graph, int start, int count, boolean[] visited) {
+	public static void bfs(ArrayList<Integer>[] graph, int start, boolean[] visited) {
 		Queue<Integer> que = new LinkedList<>();
 		que.add(start);
-		String path = "";
+		String path = ""+start;
 		while(!que.isEmpty()) {
 			int cur = que.poll();
 			if(!visited[cur]) {
 				visited[cur]=true;
-				
+				path = path+" "+cur;
 			}
+			Collections.sort(graph[cur]);
 			for(int i=0;i<graph[cur].size();i++) {
-				que.add(graph[cur].get(i));
+				int next = graph[cur].get(i);
+				if(!visited[next]) {
+					que.add(next);
+				}
 			}
-			
 		}
+		System.out.println(path);
 	}
 
 }
