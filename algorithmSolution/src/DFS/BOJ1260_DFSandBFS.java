@@ -29,13 +29,13 @@ public class BOJ1260_DFSandBFS {
 		
 		boolean[] visit = new boolean[nodeNum+1];
 		visit[startNode]=true;
-		System.out.println(dfsRecursive(graph, startNode, 1, visit, ""+startNode));
+		System.out.println(dfsRecursive(graph, startNode, visit, ""+startNode));
 		visit = new boolean[nodeNum+1];
 		visit[startNode]=true;
 		bfs(graph, startNode, visit);
 	}
 	
-	public static String dfsRecursive(ArrayList<Integer>[] graph, int start, int count, boolean[] visited, String path) {
+	public static String dfsRecursive(ArrayList<Integer>[] graph, int start, boolean[] visited, String path) {
 		String answer = path;	
 		Collections.sort(graph[start]);
 			for(int i=0;i<graph[start].size();i++) {
@@ -43,7 +43,7 @@ public class BOJ1260_DFSandBFS {
 				if(!visited[dest]) {
 					visited[dest]=true;
 					path = path+" "+dest;
-					answer = dfsRecursive(graph, dest, count+1, visited, path);
+					answer = dfsRecursive(graph, dest, visited, path);
 				}
 			}
 		return answer;
