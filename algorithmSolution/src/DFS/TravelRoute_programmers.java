@@ -3,7 +3,6 @@ package DFS;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.PriorityQueue;
 import java.util.Stack;
 
 public class TravelRoute_programmers {
@@ -30,7 +29,7 @@ public class TravelRoute_programmers {
 									{"C", "Q"}, {"K", "A"}};
 		String[][] cities4 = {{"A", "C"}, {"A", "B"}, {"C", "K"}, {"K", "A"}};
 		
-		String[] d = solution(cities4);
+		String[] d = solution(cities2);
 		for(int i=0;i<d.length;i++) {
 			System.out.print(d[i]+"=>");
 		}
@@ -53,19 +52,20 @@ public class TravelRoute_programmers {
 		tc = tickets.length;
 		Stack<String>answer=new Stack<>();
 		global = new ArrayList<>();
-		answer.push("A");
-		dfs(0,"A", dest, answer);
+		answer.push("ICN");
+		dfs(0,"ICN", dest, answer);
 		String[] ans = new String[global.size()];
 		for(int i=0;i<global.size();i++){
-			ans[i] = global.get(i);
+			ans[global.size()-1-i] = global.get(i);
 		}
 		return ans;
 	}
 	public static void dfs(int ticketCount, String start, HashMap<String, ArrayList<Destination>> d, Stack<String> answer) {
-		if(ticketCount == tc-1) {
+		if(ticketCount == tc) {
 			while(!answer.isEmpty()) {
 				global.add(answer.pop());
 			}
+			reached=true;
 		}
 		else {
 		if(d.get(start) != null && !reached){
@@ -75,7 +75,7 @@ public class TravelRoute_programmers {
 					d.get(start).get(i).visit=true;
 					dfs(ticketCount+1, d.get(start).get(i).name, d, answer);
 					d.get(start).get(i).visit=false;
-					answer.pop();
+					if(!answer.isEmpty()) answer.pop();
 				}
 			}
 			

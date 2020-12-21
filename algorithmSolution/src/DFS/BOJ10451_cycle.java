@@ -35,5 +35,9 @@ public class BOJ10451_cycle {
 			count++;
 		}
 	}
+	
+	public static void solution(int[] info) {
+		
+	}
 
 }
