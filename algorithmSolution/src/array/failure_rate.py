@@ -1,7 +1,7 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/42889
 from collections import Counter, defaultdict
 
-
+# 런타임 오류 발생코드
 def solution1(N, stages):
     cnt_info = Counter(stages)
     stage_enter_cnt = defaultdict(int)
