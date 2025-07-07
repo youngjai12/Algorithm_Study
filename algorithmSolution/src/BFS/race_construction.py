@@ -59,15 +59,14 @@ def solution_bfs(board):
                 continue
 
             if direction != -1 and direction != i:
-                if cost + 600 <= visit[next_y][next_x]:
+                if cost + 600 <= visit[next_y][next_x] or cost+600 < visit[next_y][next_x]+500:
                     visit[next_y][next_x] = min(visit[next_y][next_x], cost + 600)
                     queue.append((next_x, next_y, cost+600, i))
             else:
-                if cost + 100 <= visit[next_y][next_x]:
+                if cost + 100 <= visit[next_y][next_x] or cost+100 < visit[next_y][next_x]+500:
                     visit[next_y][next_x] = min(visit[next_y][next_x], cost + 100)
                     queue.append((next_x, next_y, cost+100, i))
 
-    print_map(visit)
     return global_min_cost
 
 def print_map(b):
@@ -77,6 +76,7 @@ def print_map(b):
 if __name__ == '__main__':
     # target_board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     # target_board =[[0,0,0,0,0,0,0,1],[0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0],[0,0,0,0,1,0,0,0],[0,0,0,1,0,0,0,1],[0,0,1,0,0,0,1,0],[0,1,0,0,0,1,0,0],[1,0,0,0,0,0,0,0]]
+    # target_board = [[0, 0, 0, 0, 0, 0], [0, 1, 1, 1, 1, 0], [0, 0, 1, 0, 0, 0], [1, 0, 0, 1, 0, 1], [0, 1, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0]]
     target_board = [[0, 0, 0, 0, 0],[0, 1, 1, 1, 0],[0, 0, 1, 0, 0],[1, 0, 0, 0, 1],[1, 1, 1, 0, 0]]
     print_map(target_board)
     #target_board = [[0,0,1,0],[0,0,0,0],[0,1,0,1],[1,0,0,0]]
