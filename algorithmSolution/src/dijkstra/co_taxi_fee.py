@@ -1,4 +1,8 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/72413
+# 어줍잖게 visit 처리를 하고, not visited인 것 중에서 순회하다보니..
+# pop()하고 나와서 visit 처리를 해주면, 왔던길을 다시 못돌아보는 상황이 생길수도..!
+#   - 만약 동점이고, 더 나은 경로가 이어지는데..
+
 from collections import defaultdict
 import heapq
 
@@ -11,19 +15,14 @@ def solution(n, s, a, b, fares):
     def _get_cost_map(ss):
         qq =[]
         cost_map = [100000001] * (n + 1)
-        999999999999
-        100000001
-        20000000
-        999999999
         cost_map[ss] = 0
-        visited = [False] * (n + 1)
 
         heapq.heappush(qq, (0, ss))  #(비용, node)
         while qq:
             cur_cost, node_num = heapq.heappop(qq)
-            visited[node_num] = True
+            #visited[node_num] = True
             for next, cost in graph[node_num]:
-                if not visited[next] and cost_map[next] > (cost_map[node_num] + cost):
+                if cost_map[next] > (cost_map[node_num] + cost):
                     cost_map[next] = cost_map[node_num] + cost
                     heapq.heappush(qq, (cost_map[next] + cost, next))
         return cost_map
